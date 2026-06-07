@@ -1,0 +1,10 @@
+# constants.py
+# Screen dimensions
+SCREEN_WIDTH = 780
+SCREEN_HEIGHT = 780
+FPS = 60
+
+# Map grid
+TILE_SIZE = 30
+COLS = SCREEN_WIDTH // TILE_SIZE  # 25
+ROWS = SCREEN_HEIGHT // TILE_SIZE  # 18
