@@ -1,28 +1,30 @@
 # map.py
+from fileinput import filename
+import os
+
 import pygame
 from obstacle import Obstacle, PASSABLE, COLORS
-from constants import ROWS, COLS, TILE_SIZE
-from levels.level1 import LEVEL_1
-from levels.level2 import LEVEL_2   
+from constants import ROWS, COLS, TILE_SIZE   
 class Map:
-    def __init__(self):
+    def __init__(self, level=3):
         self.grid = [[Obstacle.EMPTY] * COLS for _ in range(ROWS)]
-        self._load_default("level")
+        self.load_level(f"levels/level{level}.txt")
     
-    def load_level(self, level_data):
-        with open( level_data, "r") as f:
+    def load_level(self, filename):
+        
+        with open(filename, "r") as f:
             lines = [line.strip() for line in f.readlines()]
-
+        
         mapping = {
             ".": Obstacle.EMPTY,
             "B": Obstacle.BRICK,
             "S": Obstacle.STEEL,
             "W": Obstacle.WATER,
             "F": Obstacle.FOREST,
-            "x": Obstacle.BASE,
+            "X": Obstacle.BASE,
         }
         
-        for y, row in enumerate(level_data):
+        for y, row in enumerate(lines):
             for x, char in enumerate(row):
                 self.grid[y][x] = mapping.get(
                     char,
